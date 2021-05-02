@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+	<script>
+		const run = () => {
+			var source = new EventSource('/run');
+			document.getElementById('output').innerHTML = ""
+
+			source.onmessage = function(event) {
+				if(event.data !== 'END') {
+					document.getElementById('output').innerHTML += event.data + "<br/>"
+				}
+				else {
+					source.close();
+				}
+			}
+			return null;
+		}
+
+		const download = async () => {
+			await fetch('/download')
+			window.location = 'http://localhost:5000/download'
+		}
+	</script>
+</head>
+<title>PaySim 2.0</title>
+	<body>
+		<div>
+			<h1 class="page-header">PaySim 2.0</h1>
+		</div>
+		<div class="inputs">
+			<div class="input-form">
+				<h2 class="input-header">Select file(s) to upload</h2>
+				<p>
+					{% with messages = get_flashed_messages() %}
+					{% if messages %}
+						<ul class=flashes>
+						{% for message in messages %}
+						<li>{{ message }}</li>
+						{% endfor %}
+						</ul>
+					{% endif %}
+					{% endwith %}
+				</p>
+				<form method="post" action="/" enctype="multipart/form-data" class="input-form">
+					<dl>
+						<p>
+							<input type="file" name="files[]" multiple="true" autocomplete="off" required>
+						</p>
+					</dl>
+					<p>
+						<input type="submit" value="Submit">
+					</p>
+				</form>
+			</div>
+		</div>
+		<div class="run-button" onclick="run()"></div>
+		<button onclick="download()">Download</button>
+		<h3>Output</h3>
+		<div id="output"></div>
+	</body>
+</html>

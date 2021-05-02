@@ -1,0 +1,36 @@
+.page-header {
+  text-align: center;
+}
+
+.inputs {
+  text-align: center;
+}
+
+.input-form {
+  margin: 5% 10%;
+  display: inline-block;
+}
+
+.input-header {
+
+}
+
+  .run-button {
+    margin: 0 auto;
+    top: 25%;
+    position: relative;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 1.5em 0 1.5em 3em;
+    border-color: transparent transparent transparent #067906;
+    opacity: .75;
+  }
+
+  .run-button:hover {
+    opacity: .5;
+  }
+
+  #output {
+    font-family: monospace;
+  }
