@@ -8,7 +8,7 @@
 	<script>
 		const run = () => {
 			var source = new EventSource('/run');
-			document.getElementById('output').innerHTML = ""
+			document.getElementById('output').innerHTML = "Running PaySim... <br/><br/>";
 
 			source.onmessage = function(event) {
 				if(event.data !== 'END') {
@@ -16,6 +16,7 @@
 				}
 				else {
 					source.close();
+					document.getElementById("downloadButton").disabled = false;
 				}
 			}
 			return null;
@@ -59,7 +60,7 @@
 			</div>
 		</div>
 		<div class="run-button" onclick="run()"></div>
-		<button onclick="download()">Download</button>
+		<button onclick="download()" disabled=true id="downloadButton">Download</button>
 		<h3>Output</h3>
 		<div id="output"></div>
 	</body>

@@ -57,7 +57,10 @@ def upload_file():
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'][extension],
                                        filename))
 
-        flash('File(s) successfully uploaded')
+                flash('File(s) successfully uploaded')
+            else:
+                flash('Error uploading files!')
+                flash('Allowed extensions: .csv | .properties | .graphml')
         return redirect('/')
 
 @app.route('/download', methods=['GET'])
